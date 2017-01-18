@@ -1,15 +1,21 @@
 var express = require('express');
-var router = express.Router();
+var path = require("path");
 
-// middleware that is specific to this router
-router.use(function timeLog(req, res, next) {
+var apiRoutes = express.Router();
+
+apiRoutes.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
     next();
 });
 
-// define the about route
-router.get('/apiRoutes', function(req, res) {
-    res.send('GET /apiRoutes');
+apiRoutes.get('/friends', function(req, res) {
+    console.log("apiRoutes.get(\'/friends\', function(req, res) {");
+    res.send("apiRoutes.get(\'/friends\', function(req, res) {");
 });
 
-module.exports = router;
+apiRoutes.post('/friends', function(req, res) {
+    console.log("apiRoutes.post(\'/friends\', function(req, res) {");
+    res.send("apiRoutes.post(\'/friends\', function(req, res) {");
+});
+
+module.exports = apiRoutes;

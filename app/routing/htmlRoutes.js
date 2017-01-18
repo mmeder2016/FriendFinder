@@ -1,15 +1,22 @@
 var express = require('express');
-var router = express.Router();
+var path = require("path");
 
-// middleware that is specific to this router
-router.use(function timeLog(req, res, next) {
+var htmlRoutes = express.Router();
+
+htmlRoutes.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
     next();
 });
 
-// define the about route
-router.get('/htmlRoutes', function(req, res) {
-    res.send('GET /htmlRoutes');
+htmlRoutes.get('/survey', function(req, res) {
+    console.log("app.get('/survey', function(req, res) {");
+    res.sendFile(path.join(__dirname, "../public/survey.html"));
 });
 
-module.exports = router;
+// htmlRoutes
+htmlRoutes.use('/', function(req, res) {
+    console.log("app.use('/', function(req, res) {");
+    res.sendFile(path.join(__dirname, "../public/home.html"));
+});
+
+module.exports = htmlRoutes;

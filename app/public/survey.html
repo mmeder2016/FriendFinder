@@ -242,6 +242,8 @@
     <script>
     // index corresopnds to question number
     var scores = [];
+    var name = $('#name').val();
+    var photo = $('#photo').val();
 
     $("#id-submit").on("click", function() {
         var q01 = $('.div-radio-buttons01 input:radio:checked').val();
@@ -274,15 +276,11 @@
         var q10 = $('.div-radio-buttons10 input:radio:checked').val();
         scores[9] = q10;
 
-        var name = $('#name').val();
-        var photo = $('#photo').val();
-
         var myObj = {
             "name": name,
             "photo": photo,
             "scores": scores
         };
-        var myJSON = JSON.stringify(myObj);
         console.log(myObj);
         return false;
     });
