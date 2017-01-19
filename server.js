@@ -2,6 +2,9 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var path = require("path");
 var fs = require('fs');
+
+var PORT = process.env.PORT || 3000;
+
 var apiRoutes = require('./app/routing/apiRoutes');
 var htmlRoutes = require('./app/routing/htmlRoutes');
 
@@ -23,4 +26,6 @@ app.use(htmlRoutes);
 // Set up automatic serving of static files
 //app.use(express.static('app/public/'));
 
-app.listen(3000);
+app.listen(PORT, function(){
+	console.log("App listening on " + PORT);
+});

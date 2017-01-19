@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Homework due 01/21/2017</title>
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <!-- My Stuff -->
     <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <!-- Make page resposive -->
@@ -21,6 +20,11 @@
         border-width: 1px;
         border-style: solid;
         margin-bottom: 5px;
+    }
+    
+    img {
+        width: 100%;
+        max-width: 400px;
     }
     </style>
 </head>
@@ -239,15 +243,47 @@
             <button class="btn btn-default" id="id-submit" type="submit">Submit</button>
         </form>
     </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">The best match for you is:</h4>
+                </div>
+                <div class="modal-body">
+                    <h2 id="modalName"></h2>
+                    <img id="modalImage" src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjxgKG2_s7RAhUW24MKHXjnA3kQjRwIBw&url=http%3A%2F%2Falchetron.com%2FBilly-Gibbons-566797-W&psig=AFQjCNFnq4KMjkwiybKPXikkcmp3BoC7Sg&ust=1484942060234932" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-    // index corresopnds to question number
-
-
+    //     Gets the name, photolink, and 10 question answers from the form, 
+    // creates a JSON object, and then POSTs it to the path /friends.
     $("#id-submit").on("click", function() {
+        var NUMQUESTIONS = 10;
         var scores = [];
-        var name = $('#name').val();
-        var photo = $('#photo').val();
 
+        // 1.) Get the name and validate it
+        var name = $('#name').val().trim();
+        if (name.length === 0) {
+            alert("You must enter a name.");
+            return false;
+        }
+
+        // 2.) Get the photo and validate it
+        var photo = $('#photo').val().trim();
+        if (photo.length === 0) {
+            alert("You must enter a photo link.");
+            return false;
+        }
+
+        // 3.) Get all the scores and validate that they have been answered
         scores[0] = $('.div-radio-buttons01 input:radio:checked').val();
         scores[1] = $('.div-radio-buttons02 input:radio:checked').val();
         scores[2] = $('.div-radio-buttons03 input:radio:checked').val();
@@ -258,17 +294,29 @@
         scores[7] = $('.div-radio-buttons08 input:radio:checked').val();
         scores[8] = $('.div-radio-buttons09 input:radio:checked').val();
         scores[9] = $('.div-radio-buttons10 input:radio:checked').val();
+        for (var i = 0; i < NUMQUESTIONS; i++) {
+            // scores[i] will be undefined if not answered
+            if (!scores[i]) {
+                alert('You must answer all the questions');
+                return false;
+            }
+        }
 
+        // 4.) Create the new JSON object
         var newPerson = {
             "name": name,
             "photo": photo,
             "scores": scores
         };
-
-        $.post("/friends", newPerson)
+        // 5.) POST the object
+        $.post("/friends", newPerson, function(data) {
+                $("#modalName").text(data.name);
+                $('#modalImage').attr("src", data.photo);
+                $("#myModal").modal("toggle");
+            })
             .done(function(data) {
+                console.log("POSTed data");
                 console.log(data);
-                console.log("Added new person");
             });
         return false;
     });

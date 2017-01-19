@@ -1,55 +1,53 @@
 var express = require('express');
 var path = require("path");
 var fs = require('fs');
+var friends = require('../data/friends');
 
 var apiRoutes = express.Router();
 
-var peopleFile = "people.json";
-var people = [];
-
-var people = [{
-        name: "George Washington",
-        photo: "http://www.mapsofworld.com/usa/presidents/images/thumbnail/George_Washington.jpg",
-        scores: ['2', '3', '4', '5', '5', '4', '3', '2', '1', '1']
-    }, {
-        name: 'Thomas Jefferson',
-        photo: 'http://www.mapsofworld.com/usa/presidents/images/thumbnail/Thomas_Jefferson.jpg',
-        scores: ['1', '2', '3', '4', '5', '5', '4', '3', '2', '1']
-    }, {
-        name: 'John Adams',
-        photo: 'http://www.mapsofworld.com/usa/presidents/images/thumbnail/john_adams.jpg',
-        scores: ['5', '5', '3', '3', '1', '1', '2', '2', '4', '4']
-    }, {
-        name: 'James Madison',
-        photo: 'http://www.mapsofworld.com/usa/presidents/images/thumbnail/James_Madison.jpg',
-        scores: ['3', '3', '3', '3', '3', '3', '3', '3', '3', '']
-    }, {
-        name: 'James Monroe',
-        photo: 'http://www.mapsofworld.com/usa/presidents/images/thumbnail/James_Monroe.jpg',
-        scores: ['1', '2', '3', '3', '2', '1', '1', '2', '3', '3']
-    }
-];
-
-
+var FRIENDSFILE = "friends.json";
+var DEBUG = true;
 
 apiRoutes.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
     next();
 });
 
+//     For the POST and GET API call in this file, I use a JSON file to hold
+// the friends array during development. This makes it convenient for 
+// debugging. 
+
+// API GET Request /friends
+// Creates response containing the friends array as JSON data
 apiRoutes.get('/friends', function(req, res) {
     console.log("apiRoutes.get(\'/friends\', function(req, res) {");
-    res.json(people[Math.floor((Math.random() * people.length))]);
+
+    if (DEBUG) {
+        try {
+            var data = fs.readFileSync(FRIENDSFILE);
+            friends = JSON.parse(data);
+        } catch (err) {
+            // if the file is not found, use the array contents
+            console.log("Error reading file \"" + FRIENDSFILE + "\", using static array.");
+        }
+    }
+
+    res.json(friends);
 });
 
 apiRoutes.post('/friends', function(req, res) {
     console.log("apiRoutes.post(\'/friends\', function(req, res) {");
+    friends.push(req.body);
 
-    people.push(req.body);
-
-    fs.writeFileSync(peopleFile, JSON.stringify(people));
-
-    res.send("apiRoutes.post(\'/friends\', function(req, res) {");
+    if (DEBUG) {
+        try {
+            fs.writeFileSync(FRIENDSFILE, JSON.stringify(friends));
+        } catch (err) {
+            // if the file is not found, use the array contents
+            console.log("Error writing file \"" + FRIENDSFILE + "\".");
+        }
+    }
+    res.json(friends[Math.floor((Math.random() * friends.length))]);
 });
 
 module.exports = apiRoutes;
