@@ -244,50 +244,31 @@
 
 
     $("#id-submit").on("click", function() {
-        var scores = []; 
-        var name = $('#name').val(); 
+        var scores = [];
+        var name = $('#name').val();
         var photo = $('#photo').val();
 
-        var q01 = $('.div-radio-buttons01 input:radio:checked').val();
-        scores[0] = q01;
+        scores[0] = $('.div-radio-buttons01 input:radio:checked').val();
+        scores[1] = $('.div-radio-buttons02 input:radio:checked').val();
+        scores[2] = $('.div-radio-buttons03 input:radio:checked').val();
+        scores[3] = $('.div-radio-buttons04 input:radio:checked').val();
+        scores[4] = $('.div-radio-buttons05 input:radio:checked').val();
+        scores[5] = $('.div-radio-buttons06 input:radio:checked').val();
+        scores[6] = $('.div-radio-buttons07 input:radio:checked').val();
+        scores[7] = $('.div-radio-buttons08 input:radio:checked').val();
+        scores[8] = $('.div-radio-buttons09 input:radio:checked').val();
+        scores[9] = $('.div-radio-buttons10 input:radio:checked').val();
 
-        var q02 = $('.div-radio-buttons02 input:radio:checked').val();
-        scores[1] = q02;
-
-        var q03 = $('.div-radio-buttons03 input:radio:checked').val();
-        scores[2] = q03;
-
-        var q04 = $('.div-radio-buttons04 input:radio:checked').val();
-        scores[3] = q04;
-
-        var q05 = $('.div-radio-buttons05 input:radio:checked').val();
-        scores[4] = q05;
-
-        var q06 = $('.div-radio-buttons06 input:radio:checked').val();
-        scores[5] = q06;
-
-        var q07 = $('.div-radio-buttons07 input:radio:checked').val();
-        scores[6] = q07;
-
-        var q08 = $('.div-radio-buttons08 input:radio:checked').val();
-        scores[7] = q08;
-
-        var q09 = $('.div-radio-buttons09 input:radio:checked').val();
-        scores[8] = q09;
-
-        var q10 = $('.div-radio-buttons10 input:radio:checked').val();
-        scores[9] = q10;
-
-        var newFriend = {
+        var newPerson = {
             "name": name,
             "photo": photo,
             "scores": scores
         };
-        //console.log(myObj);
-        $.post("/friends", newFriend)
+
+        $.post("/friends", newPerson)
             .done(function(data) {
                 console.log(data);
-                alert("Added new friend");
+                console.log("Added new person");
             });
         return false;
     });
