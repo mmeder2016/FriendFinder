@@ -1,7 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Homework due 01/21/2017</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -42,15 +43,15 @@
         <h1>Survey Questions</h1>
         <form>
             <h4>Name (Required)</h4>
-            <input type="text" name="" id="name" class="form-control" required>
+            <input type="text" name="" id="username" class="form-control" required>
             <h4>Link to Photo Image (Required)</h4>
-            <input type="text" name="" id="photo" class="form-control" required>
+            <input type="text" name="" id="userphoto" class="form-control" required>
             <h4>Question 1: Being on time means being there 15 minutes early.</h4>
             <!-- name attribut makes buttons mutually exclusive -->
             <div class="btn-group div-radio-buttons div-radio-buttons01" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
-                    <input type="radio" name="radioGroup01" value="1" /*checked="checked" *>1
+                    <input type="radio" name="radioGroup01" value="1">1
                 </label>
                 <label class="radio-inline">
                     <input type="radio" name="radioGroup01" value="2">2
@@ -248,6 +249,7 @@
             </div>
             <br>
             <button class="btn btn-primary btn-block" id="id-submit" type="submit">Submit</button>
+            <a href="/api/friends">Get All Friends</a>
         </form>
     </div>
     <!-- Modal -->
@@ -256,15 +258,15 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!-- <button type="button" class="close" id="close-modal" data-dismiss="modal">&times;</button> -->
                     <h4 class="modal-title">The person who best matches you is:</h4>
                 </div>
                 <div class="modal-body">
                     <h2 id="modalName"></h2>
-                    <img id="modalImage" src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjxgKG2_s7RAhUW24MKHXjnA3kQjRwIBw&url=http%3A%2F%2Falchetron.com%2FBilly-Gibbons-566797-W&psig=AFQjCNFnq4KMjkwiybKPXikkcmp3BoC7Sg&ust=1484942060234932" />
+                    <img id="modalImage" src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjxgKG2_s7RAhUW24MKHXjnA3kQjRwIBw&url=http%3A%2F%2Falchetron.com%2FBilly-Gibbons-566797-W&psig=AFQjCNFnq4KMjkwiybKPXikkcmp3BoC7Sg&ust=1484942060234932" alt="Billy" />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" id="close-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -277,14 +279,14 @@
         var scores = [];
 
         // 1.) Get the name and validate it
-        var name = $('#name').val().trim();
+        var name = $('#username').val().trim();
         if (name.length === 0) {
             alert("You must enter a name.");
             return false;
         }
 
         // 2.) Get the photo and validate it
-        var photo = $('#photo').val().trim();
+        var photo = $('#userphoto').val().trim();
         if (photo.length === 0) {
             alert("You must enter a photo link.");
             return false;
@@ -316,16 +318,21 @@
             "scores": scores
         };
         // 5.) POST the object
-        $.post("/friends", newPerson, function(data) {
+        $.post("/api/friends", newPerson, function(data) {
                 $("#modalName").text(data.name);
                 $('#modalImage').attr("src", data.photo);
                 $("#myModal").modal("toggle");
             })
             .done(function(data) {
-                console.log("POSTed data");
-                console.log(data);
+                console.log("POSTed data: " + data);
             });
         return false;
+    });
+    $("#close-modal").on("click", function() {
+        // Remove input to prevent re-submitting data
+        $('#username').val("");
+        $('#userphoto').val("");
+        $('input[type=radio]').prop("checked", false);
     });
     </script>
 </body>

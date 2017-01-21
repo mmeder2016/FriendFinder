@@ -2,10 +2,6 @@
  // pre-initialized with a few people.
 
  var friends = [{
-     name: "George Washington",
-     photo: "http://www.mapsofworld.com/usa/presidents/images/thumbnail/George_Washington.jpg",
-     scores: ['2', '3', '4', '5', '5', '4', '3', '2', '1', '1']
- }, {
      name: 'Syd Barret',
      photo: 'https://i.ytimg.com/vi/_zLCUPBTx5c/maxresdefault.jpg',
      scores: ['3', '3', '3', '3', '3', '3', '3', '3', '3', '3']

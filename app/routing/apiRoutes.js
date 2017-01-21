@@ -13,8 +13,8 @@ var DEBUG = false;
 
 // API GET Request /friends
 // Creates response containing the friends array as JSON data
-apiRoutes.get('/friends', function(req, res) {
-    console.log("apiRoutes.get(\'/friends\', function(req, res) {");
+apiRoutes.get('/api/friends', function(req, res) {
+    console.log("apiRoutes.get(\'/api/friends\', function(req, res) {");
 
     if (DEBUG) {
         try {
@@ -25,12 +25,11 @@ apiRoutes.get('/friends', function(req, res) {
             console.log("Error reading file \"" + FRIENDSFILE + "\", using static array.");
         }
     }
-
     res.json(friends);
 });
 
-apiRoutes.post('/friends', function(req, res) {
-    console.log("apiRoutes.post(\'/friends\', function(req, res) {");
+apiRoutes.post('/api/friends', function(req, res) {
+    console.log("apiRoutes.post(\'/api/friends\', function(req, res) {");
     // 1.) Get the new person as a JSON object
     var new_person = req.body;
 
@@ -41,7 +40,7 @@ apiRoutes.post('/friends', function(req, res) {
     var best_match_idx = 0;
     // 2.) Calculate the difference value between new_person and each person
     //     in the friends array. Store this value in the array "difference"
-    //     with the same corresponding index 
+    //     with the same index corresponding to the friends array 
     var difference = [];    
     for (var i = 0; i < friends.length; i++) {
         // accumulate the difference total in acc
@@ -59,7 +58,7 @@ apiRoutes.post('/friends', function(req, res) {
     }
     // Add the new person to the array
     friends.push(new_person);    
-    console.log("difference array = " +difference);
+    console.log("difference array = " + difference);
     console.log(friends);
 
     if (DEBUG) {
