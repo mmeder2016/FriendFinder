@@ -4,6 +4,7 @@
   "description": "NW Homework assignment due Jan 21 2017",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "express": "^4.14.0"
   },
   "devDependencies": {},
