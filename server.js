@@ -1,16 +1,16 @@
+// INITIALIZE DEPENDENCIES
 var express = require('express');
 var bodyParser = require("body-parser");
-var path = require("path");
-var fs = require('fs');
-
-var PORT = process.env.PORT || 3000;
-
 var apiRoutes = require('./app/routing/apiRoutes');
 var htmlRoutes = require('./app/routing/htmlRoutes');
 
+// INITIALIZE EXPRESS SERVER
 var app = express();
 
-// Sets up the Express app to handle data parsing
+// INITIALIZE A PORT NUMBER
+var PORT = process.env.PORT || 3000;
+
+// SETS UP THE EXPRESS APP TO HANDLE DATA PARSING
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -26,6 +26,6 @@ app.use(htmlRoutes);
 // Set up automatic serving of static files
 //app.use(express.static('app/public/'));
 
-app.listen(PORT, function(){
-	console.log("App listening on " + PORT);
+app.listen(PORT, function() {
+    console.log("App listening on " + PORT);
 });

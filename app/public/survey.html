@@ -17,28 +17,35 @@
     }
     
     .div-radio-buttons {
-        border-width: 1px;
-        border-style: solid;
         margin-bottom: 5px;
     }
     
     img {
         width: 100%;
-        max-width: 400px;
+        max-width: 250px;
+    }
+    
+    body {
+        font-weight: bold;
+        color: green;
+    }
+    
+    .radio-inline {
+        margin-left: 5px;
+        margin-right: 5px;
     }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Survey Questions</h2>
+        <h1>Survey Questions</h1>
         <form>
-            <h3>About You</h3>
             <h4>Name (Required)</h4>
             <input type="text" name="" id="name" class="form-control" required>
             <h4>Link to Photo Image (Required)</h4>
             <input type="text" name="" id="photo" class="form-control" required>
-            <h4>Question 1:</h4>
+            <h4>Question 1: Being on time means being there 15 minutes early.</h4>
             <!-- name attribut makes buttons mutually exclusive -->
             <div class="btn-group div-radio-buttons div-radio-buttons01" data-toggle="buttons">
                 Agree
@@ -59,7 +66,7 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 2:</h4>
+            <h4>Question 2: A conversation involves awareness that you are also there to listen.</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons02" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
@@ -79,7 +86,7 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 3:</h4>
+            <h4>Question 3: It is difficult to think of good questions for matching friends.</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons03" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
@@ -99,7 +106,7 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 4:</h4>
+            <h4>Question 4: You find a wallet with $200. It's your $200 now.</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons04" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
@@ -119,7 +126,7 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 5:</h4>
+            <h4>Question 5: It's better to cut off an arm than to risk letting the whole body die.</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons05" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
@@ -139,11 +146,11 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 6:</h4>
+            <h4>Question 6: A day off with beautiful weather should be spent outdoors</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons06" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
-                    <input type="radio" name="radioGroup06" value="1" /*checked="checked" *>1
+                    <input type="radio" name="radioGroup06" value="1">1
                 </label>
                 <label class="radio-inline">
                     <input type="radio" name="radioGroup06" value="2">2
@@ -159,7 +166,7 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 7:</h4>
+            <h4>Question 7: You should go to bed at the same time every night.</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons07" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
@@ -179,7 +186,7 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 8:</h4>
+            <h4>Question 8: You keep where you live very clean.</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons08" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
@@ -199,7 +206,7 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 9:</h4>
+            <h4>Question 9: Dirty jokes are always bad.</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons09" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
@@ -219,7 +226,7 @@
                 </label>
                 Disagree
             </div>
-            <h4>Question 10:</h4>
+            <h4>Question 10: Pets should be allowed to sleep in your bed.</h4>
             <div class="btn-group div-radio-buttons div-radio-buttons10" data-toggle="buttons">
                 Agree
                 <label class="radio-inline">
@@ -240,7 +247,7 @@
                 Disagree
             </div>
             <br>
-            <button class="btn btn-default" id="id-submit" type="submit">Submit</button>
+            <button class="btn btn-primary btn-block" id="id-submit" type="submit">Submit</button>
         </form>
     </div>
     <!-- Modal -->
@@ -250,7 +257,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">The best match for you is:</h4>
+                    <h4 class="modal-title">The person who best matches you is:</h4>
                 </div>
                 <div class="modal-body">
                     <h2 id="modalName"></h2>
