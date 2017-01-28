@@ -1,7 +1,7 @@
 {
   "name": "friendfinder",
   "version": "1.0.0",
-  "description": "NW Homework assignment due Jan 21 2017",
+  "description": "Homework due 01/21/2017",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.16.0",
@@ -20,8 +20,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mmeder2016/FriendFinder/issues"
-  },"engines": {
-    "node": "4.5.0"
   },
   "homepage": "https://github.com/mmeder2016/FriendFinder#readme"
 }
